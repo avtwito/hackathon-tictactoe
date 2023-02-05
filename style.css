@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Itim', cursive;
+}
+
+.background {
+    background-color: rgb(18, 24, 28);
+    height: 100vh;
+    padding-top: 1px;
+}
+
+.turn-board {
+    color: whitesmoke;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.title {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 10%;
+}
+
+.hide {
+    display: none;
+}
+
+.board-container {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    max-width: 3 * 100px;
+}
+
+.tile {
+    border: 1px solid whitesmoke;
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.playerX {
+    color: rgb(9, 195, 114);
+}
+
+.playerO {
+    color: rgb(73, 138, 248);
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+#reset {
+    background-color: rgb(255, 56, 96);
+    color: whitesmoke;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+#start {
+    background-color: skyblue;
+    color: whitesmoke;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    margin-left: 1em;
+    cursor: pointer;
+}
