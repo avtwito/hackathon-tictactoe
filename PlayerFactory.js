@@ -1,7 +1,4 @@
 class PlayerFactory {
-    public constructor() {
-
-    }
 
     /**
      * This method gets a string from the command line
@@ -10,7 +7,7 @@ class PlayerFactory {
      * @param playerRequest "clever"/"whatever"/"human"
      * @return Player CleverPlayer/WhateverPlayer/HumanPlayer
      */
-    public buildPlayer(playerRequest : String) : Player {
+    static buildPlayer(playerRequest) {
         switch (playerRequest) {
             case "human" : return new HumanPlayer();
             case "whatever" : return new WhateverPlayer();

@@ -1,36 +1,35 @@
 
-enum Mark {
-    BLANK = "BLANK",
-    X ="X",
-    O = "O"
+const Mark = {
+    BLANK: "BLANK",
+    X: "X",
+    O: "O"
 }
-
-enum Winner {
-    X_WIN = "X WINS!",
-    O_WIN = "O WINS",
-    DRAW = "IT'S A DRAW"
+const Winner =  {
+    X_WIN: "X WINS!",
+    O_WIN: "O WINS",
+    DRAW: "IT'S A DRAW"
 }
 
 class Board {
 
-    public static readonly SIZE : number = 5;
-    public static readonly WIN_STREAK : number = 3;
+    static SIZE = 5;
+    static WIN_STREAK = 3;
 
 
-    private board : HTMLDivElement[][];
-    private emptySquares : number = Board.SIZE * Board.SIZE;
-    private didSomebodyWin : boolean = false;
-    private whoWin : Winner;
+    board;
+    emptySquares = Board.SIZE * Board.SIZE;
+    didSomebodyWin = false;
+    whoWin;
 
     //==================Public Methods==================
 
     /**
      * Constructor
      */
-    public constructor() {
+    constructor() {
         this.board = new HTMLDivElement[Board.SIZE][Board.SIZE];
-        for (let row : number = 0; row < Board.SIZE; row++) {
-            for (let col : number = 0; col < Board.SIZE; col++) {
+        for (let row = 0; row < Board.SIZE; row++) {
+            for (let col = 0; col < Board.SIZE; col++) {
                 this.board[row][col] = document.createElement('div');
                 this.board[row][col].classList.add('tile');
                 this.board[row][col].innerHTML = Mark.BLANK;
@@ -44,9 +43,9 @@ class Board {
      * Copy constructor
      * @param boardCopy the board we want to copy from
      */
-    public copyConstructor(boardCopy : Board) {
+    copyConstructor(boardCopy) {
         this.board = new HTMLDivElement[Board.SIZE][Board.SIZE];
-        for (let row : number = 0; row < Board.SIZE; row++) {
+        for (let row = 0; row < Board.SIZE; row++) {
             for (let col = 0; col < Board.SIZE; col++) {
                 this.board[row][col].innerHTML = boardCopy.getMark(row, col);
             }
@@ -62,7 +61,7 @@ class Board {
      * @param col col coordinate
      * @return true if update request has completed successfully, false otherwise
      */
-    public putMark(mark : Mark, row : number, col : number) : boolean{
+    putMark(mark, row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return false;
         this.board[row][col].innerHTML = mark;
@@ -82,13 +81,13 @@ class Board {
         return true;
     }
 
-    public checkWinner(mark : Mark, row : number, col : number) : boolean{
+    checkWinner(mark, row, col) {
 
 
         //==================== horizontal ====================
 
         // count left
-        let countWins : number = this.countMarkInDirection(row, col, 0, 1, mark);
+        let countWins = this.countMarkInDirection(row, col, 0, 1, mark);
 
         // count right
         countWins += this.countMarkInDirection(row, col, 0, -1, mark);
@@ -133,11 +132,11 @@ class Board {
         return countWins > Board.WIN_STREAK;
     }
 
-    public checkIfSomebodyWon() : boolean {
+    checkIfSomebodyWon() {
         return this.didSomebodyWin;
     }
 
-    public getWhoWin() : Winner {
+    get whoWin() {
         return this.whoWin;
     }
 
@@ -148,7 +147,7 @@ class Board {
      * @return enum Mark (X, O or BLANK)
      * or null in case coordinate is illegal
      */
-    public getMark(row : number, col : number) : string {
+    getMark(row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return "";
         return this.board[row][col].innerHTML;
@@ -156,7 +155,7 @@ class Board {
 
 
     //==================Private Methods==================
-    private getEnumWinner(winner : Mark) : Winner {
+    getEnumWinner(winner) {
         if (winner == Mark.X)
             return Winner.X_WIN;
         if (winner == Mark.O)
@@ -164,8 +163,8 @@ class Board {
         return Winner.DRAW;
     }
 
-    private countMarkInDirection(row : number, col : number, rowDelta : number,colDelta : number, mark : Mark) : number{
-        let count : number = 0;
+    countMarkInDirection(row, col, rowDelta ,colDelta, mark) {
+        let count = 0;
         while(row < Board.SIZE && row >= 0 && col < Board.SIZE && col >= 0 && this.board[row][col].innerHTML == mark) {
             count++;
             row += rowDelta;

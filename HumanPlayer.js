@@ -1,6 +1,6 @@
-class HumanPlayer implements Player {
+class HumanPlayer{
 
-    public constructor() {
+    constructor() {
 
     }
 
@@ -10,9 +10,9 @@ class HumanPlayer implements Player {
      * @param board given current board
      * @param mark current player's mark
      */
-    public playTurn(board : Board, mark : Mark) : void {
-        for (let row : number = 0; row < Board.SIZE; row++) {
-            for (let col : number = 0; col < Board.SIZE; col++) {
+    playTurn(board, mark) {
+        for (let row = 0; row < Board.SIZE; row++) {
+            for (let col = 0; col < Board.SIZE; col++) {
                 board[row][col].addEventListener("click", board.putMark(mark, row, col));
             }
         }
