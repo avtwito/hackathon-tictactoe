@@ -1,3 +1,5 @@
+
+
 /**
  * Class commits a series of TicTacToe matches between two given players
  * with a given renderer, as between the matches the players switch roles.
@@ -29,20 +31,27 @@ class Tournament {
         return winArray;
     }
 
+    // /**
+    //  * This method gets a string from the command line
+    //  * with types of players to build,
+    //  * and returns the players accordingly
+    //  * @param playerRequest "clever"/"whatever"/"human"
+    //  * @return Player CleverPlayer/WhateverPlayer/HumanPlayer
+    //  */
+    // static buildPlayer(playerRequest) {
+    //     switch (playerRequest) {
+    //         case "human" : return new HumanPlayer();
+    //         case "whatever" : return new WhateverPlayer();
+    //         // case "clever" : return new CleverPlayer();
+    //     };
+    //     return new HumanPlayer();
+    // }
+
 
     static main() {
         const rounds = 1;
-        const player1Type = "human";
-        const player2Type = "human";
 
-        const player1  = PlayerFactory.buildPlayer(player1Type);
-        const player2 = PlayerFactory.buildPlayer(player2Type);
-        if (renderer == null || player1 == null || player2 == null) {
-            alert("Not supported");
-            return;
-        }
-
-        const tournament = new Tournament(rounds, player1, player2);
+        const tournament = new Tournament(rounds, HumanPlayer, HumanPlayer);
         const score = tournament.playTournament();
         alert(`X wins: ${score[0]}. O wins: ${score[1]}. Draws: ${score[2]}`);
     }

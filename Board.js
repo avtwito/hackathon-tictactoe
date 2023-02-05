@@ -1,6 +1,6 @@
 
 const Mark = {
-    BLANK: "BLANK",
+    BLANK: "",
     X: "X",
     O: "O"
 }
@@ -16,7 +16,7 @@ class Board {
     static WIN_STREAK = 3;
 
 
-    board;
+    board = new Array(Board.SIZE);
     emptySquares = Board.SIZE * Board.SIZE;
     didSomebodyWin = false;
     whoWin;
@@ -27,30 +27,17 @@ class Board {
      * Constructor
      */
     constructor() {
-        this.board = new HTMLDivElement[Board.SIZE][Board.SIZE];
         for (let row = 0; row < Board.SIZE; row++) {
+            this.board[row] = new Array(Board.SIZE);
             for (let col = 0; col < Board.SIZE; col++) {
                 this.board[row][col] = document.createElement('div');
                 this.board[row][col].classList.add('tile');
                 this.board[row][col].innerHTML = Mark.BLANK;
-
-                document.querySelector("board-container")?.appendChild(this.board[row][col]);
+                document.querySelector(".board-container").appendChild(this.board[row][col]);
             }
         }
-    }
-
-    /**
-     * Copy constructor
-     * @param boardCopy the board we want to copy from
-     */
-    copyConstructor(boardCopy) {
-        this.board = new HTMLDivElement[Board.SIZE][Board.SIZE];
-        for (let row = 0; row < Board.SIZE; row++) {
-            for (let col = 0; col < Board.SIZE; col++) {
-                this.board[row][col].innerHTML = boardCopy.getMark(row, col);
-            }
-        }
-        this.emptySquares = boardCopy.emptySquares;
+        Renderer.renderBoard();
+        
     }
 
 
@@ -64,19 +51,20 @@ class Board {
     putMark(mark, row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return false;
-        this.board[row][col].innerHTML = mark;
+        board[row][col].innerHTML = mark;
+        board[row][col].classList.add(`player${mark}`);
         if (mark === Mark.BLANK) {
-            this.emptySquares++;
+            emptySquares++;
             return true;
         }
-        this.emptySquares--;
-        if (this.checkWinner(mark, row, col)) {
+        emptySquares--;
+        if (checkWinner(mark, row, col)) {
             this.didSomebodyWin = true;
-            this.whoWin = this.getEnumWinner(mark);
+            whoWin = getEnumWinner(mark);
         }
-        else if (this.emptySquares == 0) {
+        else if (emptySquares == 0) {
             this.didSomebodyWin = true;
-            this.whoWin = Winner.DRAW;
+            whoWin = Winner.DRAW;
         }
         return true;
     }
@@ -87,10 +75,10 @@ class Board {
         //==================== horizontal ====================
 
         // count left
-        let countWins = this.countMarkInDirection(row, col, 0, 1, mark);
+        let countWins = countMarkInDirection(row, col, 0, 1, mark);
 
         // count right
-        countWins += this.countMarkInDirection(row, col, 0, -1, mark);
+        countWins += countMarkInDirection(row, col, 0, -1, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -99,10 +87,10 @@ class Board {
         //==================== orthogonal ====================
 
         // count up
-        countWins = this.countMarkInDirection(row, col, -1, 0, mark);
+        countWins = countMarkInDirection(row, col, -1, 0, mark);
 
         // count down
-        countWins += this.countMarkInDirection(row, col, 1, 0, mark);
+        countWins += countMarkInDirection(row, col, 1, 0, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -111,10 +99,10 @@ class Board {
         // ========== diagonal left to right (down) ==========
 
         // count left up
-        countWins = this.countMarkInDirection(row, col, -1, -1, mark);
+        countWins = countMarkInDirection(row, col, -1, -1, mark);
 
         // count right down
-        countWins += this.countMarkInDirection(row, col, 1, 1, mark);
+        countWins += countMarkInDirection(row, col, 1, 1, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -124,10 +112,10 @@ class Board {
 
 
         // count right up
-        countWins = this.countMarkInDirection(row, col, -1, 1, mark);
+        countWins = countMarkInDirection(row, col, -1, 1, mark);
 
         // count left down
-        countWins += this.countMarkInDirection(row, col, 1, -1, mark);
+        countWins += countMarkInDirection(row, col, 1, -1, mark);
 
         return countWins > Board.WIN_STREAK;
     }
@@ -137,7 +125,7 @@ class Board {
     }
 
     get whoWin() {
-        return this.whoWin;
+        return whoWin;
     }
 
     /**
@@ -149,8 +137,8 @@ class Board {
      */
     getMark(row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
-            return "";
-        return this.board[row][col].innerHTML;
+            return null;
+        return board[row][col].innerHTML;
     }
 
 
@@ -165,7 +153,7 @@ class Board {
 
     countMarkInDirection(row, col, rowDelta ,colDelta, mark) {
         let count = 0;
-        while(row < Board.SIZE && row >= 0 && col < Board.SIZE && col >= 0 && this.board[row][col].innerHTML == mark) {
+        while(row < Board.SIZE && row >= 0 && col < Board.SIZE && col >= 0 && board[row][col].innerHTML == mark) {
             count++;
             row += rowDelta;
             col += colDelta;
