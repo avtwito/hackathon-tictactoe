@@ -1,3 +1,5 @@
+import { Board } from "./Board.js"
+
 export class HumanPlayer {
 
     /**
@@ -7,9 +9,12 @@ export class HumanPlayer {
      * @param mark current player's mark
      */
     static playTurn(board, mark) {
+        let handler = function (e) {
+            return board.putMark(mark, row, col);
+        };
         for (let row = 0; row < Board.SIZE; row++) {
             for (let col = 0; col < Board.SIZE; col++) {
-                board[row][col].addEventListener("click", board.putMark(mark, row, col));
+                board.board[row][col].addEventListener("click", handler);
             }
         }
     }
