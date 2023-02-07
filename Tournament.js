@@ -1,8 +1,8 @@
-import { HumanPlayer } from "./static/HumanPlayer";
-import { WhateverPlayer } from "./static/WhateverPlayer";
-import { Game } from "./static/Game";
-import { Board } from "./static/Board";
-app.use("/static", express.static('./static/'));
+import { HumanPlayer } from "./static/HumanPlayer.js";
+import { WhateverPlayer } from "./static/WhateverPlayer.js";
+import { Game } from "./static/Game.js";
+import { Board } from "./static/Board.js";
+// app.use("/static", express.static('./static/'));
 
 
 /**

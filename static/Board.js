@@ -1,4 +1,6 @@
-export default class Board {
+import { Renderer } from "./Renderer.js"
+
+export class Board {
 
     static SIZE = 5;
     static WIN_STREAK = 3;
@@ -31,7 +33,7 @@ export default class Board {
             for (let col = 0; col < Board.SIZE; col++) {
                 this.board[row][col] = document.createElement('div');
                 this.board[row][col].classList.add('tile');
-                this.board[row][col].innerHTML = Mark.BLANK;
+                this.board[row][col].innerHTML = Board.Mark.BLANK;
                 document.querySelector(".board-container").appendChild(this.board[row][col]);
             }
         }
@@ -50,20 +52,20 @@ export default class Board {
     putMark(mark, row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return false;
-        board[row][col].innerHTML = mark;
-        board[row][col].classList.add(`player${mark}`);
-        if (mark === Mark.BLANK) {
-            emptySquares++;
+        this.board[row][col].innerHTML = mark;
+        this.board[row][col].classList.add(`player${mark}`);
+        if (mark === Board.Mark.BLANK) {
+            this.emptySquares++;
             return true;
         }
-        emptySquares--;
-        if (checkWinner(mark, row, col)) {
+        this.emptySquares--;
+        if (this.checkWinner(mark, row, col)) {
             this.didSomebodyWin = true;
-            whoWin = getEnumWinner(mark);
+            this.whoWin = getEnumWinner(mark);
         }
-        else if (emptySquares == 0) {
+        else if (this.emptySquares == 0) {
             this.didSomebodyWin = true;
-            whoWin = Winner.DRAW;
+            this.whoWin = Winner.DRAW;
         }
         return true;
     }
@@ -74,10 +76,10 @@ export default class Board {
         //==================== horizontal ====================
 
         // count left
-        let countWins = countMarkInDirection(row, col, 0, 1, mark);
+        let countWins = this.countMarkInDirection(row, col, 0, 1, mark);
 
         // count right
-        countWins += countMarkInDirection(row, col, 0, -1, mark);
+        countWins += this.countMarkInDirection(row, col, 0, -1, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -86,10 +88,10 @@ export default class Board {
         //==================== orthogonal ====================
 
         // count up
-        countWins = countMarkInDirection(row, col, -1, 0, mark);
+        countWins = this.countMarkInDirection(row, col, -1, 0, mark);
 
         // count down
-        countWins += countMarkInDirection(row, col, 1, 0, mark);
+        countWins += this.countMarkInDirection(row, col, 1, 0, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -98,10 +100,10 @@ export default class Board {
         // ========== diagonal left to right (down) ==========
 
         // count left up
-        countWins = countMarkInDirection(row, col, -1, -1, mark);
+        countWins = this.countMarkInDirection(row, col, -1, -1, mark);
 
         // count right down
-        countWins += countMarkInDirection(row, col, 1, 1, mark);
+        countWins += this.countMarkInDirection(row, col, 1, 1, mark);
 
         if (countWins > Board.WIN_STREAK)
             return true;
@@ -111,10 +113,10 @@ export default class Board {
 
 
         // count right up
-        countWins = countMarkInDirection(row, col, -1, 1, mark);
+        countWins = this.countMarkInDirection(row, col, -1, 1, mark);
 
         // count left down
-        countWins += countMarkInDirection(row, col, 1, -1, mark);
+        countWins += this.countMarkInDirection(row, col, 1, -1, mark);
 
         return countWins > Board.WIN_STREAK;
     }
@@ -124,7 +126,7 @@ export default class Board {
     }
 
     get whoWin() {
-        return whoWin;
+        return this.whoWin;
     }
 
     /**
@@ -137,22 +139,13 @@ export default class Board {
     getMark(row, col) {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return null;
-        return board[row][col].innerHTML;
+        return this.board[row][col].innerHTML;
     }
 
-
-    //==================Private Methods==================
-    getEnumWinner(winner) {
-        if (winner == Mark.X)
-            return Winner.X_WIN;
-        if (winner == Mark.O)
-            return Winner.O_WIN;
-        return Winner.DRAW;
-    }
 
     countMarkInDirection(row, col, rowDelta ,colDelta, mark) {
         let count = 0;
-        while(row < Board.SIZE && row >= 0 && col < Board.SIZE && col >= 0 && board[row][col].innerHTML == mark) {
+        while(row < Board.SIZE && row >= 0 && col < Board.SIZE && col >= 0 && this.board[row][col].innerHTML == mark) {
             count++;
             row += rowDelta;
             col += colDelta;
