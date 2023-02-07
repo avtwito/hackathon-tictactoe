@@ -1,5 +1,9 @@
-import { HumanPlayer } from "./HumanPlayer";
-import { WhateverPlayer } from "./WhateverPlayer";
+import { HumanPlayer } from "./static/HumanPlayer";
+import { WhateverPlayer } from "./static/WhateverPlayer";
+import { Game } from "./static/Game";
+import { Board } from "./static/Board";
+app.use("/static", express.static('./static/'));
+
 
 /**
  * Class commits a series of TicTacToe matches between two given players
@@ -24,8 +28,8 @@ class Tournament {
             match = new Game(this.players[i % 2], this.players[(i + 1) % 2]);
             winner = match.run();
             switch (winner) {
-                case Winner.X_WIN : winArray[i % 2]++;
-                case Winner.O_WIN : winArray[(i + 1) % 2]++;
+                case Board.Winner.X_WIN : winArray[i % 2]++;
+                case Board.Winner.O_WIN : winArray[(i + 1) % 2]++;
                 default : winArray[2]++;
             }
         }
