@@ -1,4 +1,6 @@
-class Game {
+import { Board } from "./Board";
+
+export class Game {
 
     playerX;
     playerO;
@@ -11,7 +13,7 @@ class Game {
     run() {
         const board = new Board();
         const players = [this.playerX, this.playerO];
-        const marks = [Mark.X, Mark.O];
+        const marks = [Board.Mark.X, Board.Mark.O];
         let counter = 0;
         while (!board.checkIfSomebodyWon()) {
             players[counter % 2].playTurn(board, marks[counter % 2]);

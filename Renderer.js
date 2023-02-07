@@ -1,4 +1,6 @@
-class Renderer {
+import { Board } from "./Board";
+
+export class Renderer {
     static renderBoard() {
         const container = document.querySelector(".board-container");
         container.style.gridTemplateColumns = '1fr '.repeat(Board.SIZE);

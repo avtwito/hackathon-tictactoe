@@ -1,19 +1,18 @@
-
-const Mark = {
-    BLANK: "",
-    X: "X",
-    O: "O"
-}
-const Winner =  {
-    X_WIN: "X WINS!",
-    O_WIN: "O WINS",
-    DRAW: "IT'S A DRAW"
-}
-
-class Board {
+export default class Board {
 
     static SIZE = 5;
     static WIN_STREAK = 3;
+
+    static Mark = {
+        BLANK: "",
+        X: "X",
+        O: "O"
+    }
+    static Winner =  {
+        X_WIN: "X WINS!",
+        O_WIN: "O WINS",
+        DRAW: "IT'S A DRAW"
+    }
 
 
     board = new Array(Board.SIZE);
@@ -37,7 +36,7 @@ class Board {
             }
         }
         Renderer.renderBoard();
-        
+
     }
 
 

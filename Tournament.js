@@ -1,4 +1,5 @@
-
+import { HumanPlayer } from "./HumanPlayer";
+import { WhateverPlayer } from "./WhateverPlayer";
 
 /**
  * Class commits a series of TicTacToe matches between two given players
@@ -30,6 +31,9 @@ class Tournament {
         }
         return winArray;
     }
+
+
+    // I legt this here for later changes - use more kinds of players
 
     // /**
     //  * This method gets a string from the command line

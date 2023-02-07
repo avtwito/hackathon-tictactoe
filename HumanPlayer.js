@@ -1,4 +1,4 @@
-class HumanPlayer{
+export class HumanPlayer {
 
     /**
      * This method asks for coordinates from the user
