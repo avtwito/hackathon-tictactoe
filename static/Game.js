@@ -10,19 +10,19 @@ export class Game {
         this.playerO = playerO;
     }
 
-    run() {
+    async run() {
         const board = new Board();
         const players = [this.playerX, this.playerO];
         const marks = [Board.Mark.X, Board.Mark.O];
         let counter = 0;
         while (!board.checkIfSomebodyWon()) {
-            players[counter % 2].playTurn(board, marks[counter % 2]);
-
+            players[counter % 2].mark = marks[counter % 2]
+            await players[counter % 2].playTurn(board);
 
             counter++;
         }
         // If you reached here - somebody won
-        return board.getWhoWin();
+        return board.whoWin;
     }
 
 }

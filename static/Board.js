@@ -28,6 +28,7 @@ export class Board {
      * Constructor
      */
     constructor() {
+        document.querySelector(".board-container").innerHTML = ''
         for (let row = 0; row < Board.SIZE; row++) {
             this.board[row] = new Array(Board.SIZE);
             for (let col = 0; col < Board.SIZE; col++) {
@@ -38,7 +39,6 @@ export class Board {
             }
         }
         Renderer.renderBoard();
-
     }
 
 
@@ -61,11 +61,11 @@ export class Board {
         this.emptySquares--;
         if (this.checkWinner(mark, row, col)) {
             this.didSomebodyWin = true;
-            this.whoWin = getEnumWinner(mark);
+            this.whoWin = this.markToWinner(mark);
         }
         else if (this.emptySquares == 0) {
             this.didSomebodyWin = true;
-            this.whoWin = Winner.DRAW;
+            this.whoWin = Board.Winner.DRAW;
         }
         return true;
     }
@@ -140,6 +140,15 @@ export class Board {
         if (row < 0 || row >= Board.SIZE || col < 0 || col >= Board.SIZE)
             return null;
         return this.board[row][col].innerHTML;
+    }
+
+    /**
+     * 
+     * @param {Board.Mark} mark 
+     * @returns {Board.Winner}
+     */
+    markToWinner(mark) {
+        return Board.Winner.X_WIN ? (mark === Board.Mark.X) : Board.Winner.O_WIN;
     }
 
 

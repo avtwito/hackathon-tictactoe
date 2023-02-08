@@ -27,6 +27,7 @@ class Tournament {
         for (let i = 0; i < this.rounds; i++) {
             match = new Game(this.players[i % 2], this.players[(i + 1) % 2]);
             winner = match.run();
+            document.querySelector("#reset").addEventListener("click", () => {match = new Game(this.players[i % 2], this.players[(i + 1) % 2])});
             switch (winner) {
                 case Board.Winner.X_WIN : winArray[i % 2]++;
                 case Board.Winner.O_WIN : winArray[(i + 1) % 2]++;
