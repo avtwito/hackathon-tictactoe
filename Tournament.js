@@ -33,13 +33,12 @@ class Tournament {
             });
             await winner;
             winner.then(function (value) {
-                console.log(value);
-                    if (value === Board.Winner.X_WIN)
-                        winArray[0]++;
-                    else if (value === Board.Winner.O_WIN)
-                        winArray[1]++;
-                    else
-                        winArray[2]++;
+                if (value === Board.Winner.X_WIN)
+                    winArray[0]++;
+                else if (value === Board.Winner.O_WIN)
+                    winArray[1]++;
+                else
+                    winArray[2]++;
             })
         }
         return winArray;
