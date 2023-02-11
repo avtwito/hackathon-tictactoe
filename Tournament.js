@@ -1,5 +1,6 @@
 import { HumanPlayer } from "./static/HumanPlayer.js";
 import { WhateverPlayer } from "./static/WhateverPlayer.js";
+import { CleverPlayer } from "./static/CleverPlayer.js"
 import { Game } from "./static/Game.js";
 import { Board } from "./static/Board.js";
 // app.use("/static", express.static('./static/'));
@@ -66,7 +67,7 @@ class Tournament {
 
 
     static async starter(rounds) {
-        const tournament = new Tournament(rounds, HumanPlayer, HumanPlayer);
+        const tournament = new Tournament(rounds, HumanPlayer, CleverPlayer);
         const score = tournament.playTournament();
         await score;
         score.then(function (value) { myDisplayer(value); })
