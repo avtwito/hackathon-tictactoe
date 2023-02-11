@@ -13,13 +13,34 @@
             <h1>Tic Tac Toe</h1>
         </section>
         <section class="turn-board">
-            It's <span class="playerX">X</span>'s turn!
+            It's <span class="playerX" id="turn-board">X</span>'s turn!
         </section>
-        <section class="board-container"></section><!--inside are the divs-->
+        <section class="result">
+            <div id="result"></div>
+        </section>
         <section class="controls">
+            <form id="rounds">
+                <div class="rounds">Rounds</div>
+                <input type="radio" name="rounds" value="1" checked>1
+                <input type="radio" name="rounds" value="2">2
+                <input type="radio" name="rounds" value="3">3
+            </form>
+            <form id="size">
+                <div class="size">Board Size</div>
+                <input type="radio" name="size" value="3">3x3
+                <input type="radio" name="size" value="4">4x4
+                <input type="radio" name="size" value="5" checked>5x5
+            </form>
+            <form id="win-streak">
+                <div class="win-streak">Win Streak</div>
+                <input type="radio" name="win-streak" value="3" checked>3
+                <input type="radio" name="win-streak" value="4">4
+                <input type="radio" name="win-streak" value="5">5
+            </form>
             <button id="start">Start</button>
             <button id="reset">Reset</button>
         </section>
+        <section class="board-container"></section><!--inside are the divs-->
     </main>
 </body>
 <script type="module" src="static/Board.js"></script>

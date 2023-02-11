@@ -13,7 +13,8 @@ export class HumanPlayer extends Player {
         return new Promise(acc => {
             function handleClick(row, col) {
                 document.removeEventListener('click', () => {handleClick(row, col)});
-                if (board.putMark(that.mark, row, col)) {
+                const flag = board.putMark(that.mark, row, col);
+                if (flag) {
                     acc();
                 }
             }

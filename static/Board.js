@@ -38,7 +38,7 @@ export class Board {
                 document.querySelector(".board-container").appendChild(this.board[row][col]);
             }
         }
-        Renderer.renderBoard();
+        Renderer.renderBoard(this.board);
     }
 
 
@@ -148,7 +148,7 @@ export class Board {
      * @returns {Board.Winner}
      */
     markToWinner(mark) {
-        return Board.Winner.X_WIN ? (mark === Board.Mark.X) : Board.Winner.O_WIN;
+        return (mark === Board.Mark.X) ? Board.Winner.X_WIN : Board.Winner.O_WIN;
     }
 
 

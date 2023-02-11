@@ -6,7 +6,7 @@
 
 .background {
     background-color: rgb(18, 24, 28);
-    height: 170vh;
+    height: 138vh;
     padding-top: 1px;
 }
 
@@ -22,7 +22,7 @@
     color: whitesmoke;
     text-align: center;
     font-size: 40px;
-    margin-top: 10%;
+    margin-top: 1px;
 }
 
 .hide {
@@ -53,12 +53,39 @@
     color: rgb(73, 138, 248);
 }
 
-.controls {
+.controls, .result {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.result {
+    display: none;
+}
+
+#rounds, #size, #win-streak {
+    background-color: palevioletred;
+    color: whitesmoke;
+    padding: 3px 5px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    margin-left: 1em;
+    cursor: default;
+}
+
+#size {
+    background-color: cadetblue;
+}
+
+#win-streak {
+    background-color: green;
+}
+
+#rounds input, #size input, #win-streak input {
+    cursor: pointer;
 }
 
 #reset {
@@ -81,4 +108,14 @@
     font-size: 20px;
     margin-left: 1em;
     cursor: pointer;
+}
+
+#result {
+    background-color: rebeccapurple;
+    color: aliceblue;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1.5rem;
+    margin-left: 1em;
 }

@@ -20,25 +20,33 @@ class Tournament {
         this.players = [player1, player2];
     }
 
-    playTournament() {
+    async playTournament() {
         let match;
         let winArray = [0, 0, 0];
         let winner;
+        console.log(this.rounds);
         for (let i = 0; i < this.rounds; i++) {
             match = new Game(this.players[i % 2], this.players[(i + 1) % 2]);
             winner = match.run();
-            document.querySelector("#reset").addEventListener("click", () => {match = new Game(this.players[i % 2], this.players[(i + 1) % 2])});
-            switch (winner) {
-                case Board.Winner.X_WIN : winArray[i % 2]++;
-                case Board.Winner.O_WIN : winArray[(i + 1) % 2]++;
-                default : winArray[2]++;
-            }
+            document.querySelector("#reset").addEventListener("click", () => {
+                match = new Game(this.players[i % 2], this.players[(i + 1) % 2])
+            });
+            await winner;
+            winner.then(function (value) {
+                console.log(value);
+                    if (value === Board.Winner.X_WIN)
+                        winArray[0]++;
+                    else if (value === Board.Winner.O_WIN)
+                        winArray[1]++;
+                    else
+                        winArray[2]++;
+            })
         }
         return winArray;
     }
 
 
-    // I legt this here for later changes - use more kinds of players
+    // I left this here for later changes - use more kinds of players
 
     // /**
     //  * This method gets a string from the command line
@@ -57,13 +65,48 @@ class Tournament {
     // }
 
 
-    static main() {
-        const rounds = 1;
-
+    static async starter(rounds) {
         const tournament = new Tournament(rounds, HumanPlayer, HumanPlayer);
         const score = tournament.playTournament();
-        alert(`X wins: ${score[0]}. O wins: ${score[1]}. Draws: ${score[2]}`);
+        await score;
+        score.then(function (value) { myDisplayer(value); })
     }
 }
 
-Tournament.main();
+function main() {
+    let rounds = 1;
+    const roundsCount = document.querySelectorAll('#rounds input');
+    for (const input of roundsCount) {
+        input.addEventListener("change", function (e) {
+            rounds = e.target.value;
+        })
+    }
+
+    const boardSize = document.querySelectorAll('#size input');
+    for (const input of boardSize) {
+        input.addEventListener("change", (e) => {
+            Board.SIZE = e.target.value;
+        })
+    }
+
+    const winStreak = document.querySelectorAll('#win-streak input');
+    for (const input of winStreak) {
+        input.addEventListener("change", (e) => {
+            Board.WIN_STREAK = e.target.value;
+        })
+    }
+
+    document.querySelector("#start").addEventListener("click", () => {
+        Tournament.starter(rounds);
+    })
+
+}
+
+main();
+
+function myDisplayer(value) {
+    const resultDiv = document.querySelector("#result");
+    resultDiv.textContent = (`X wins: ${value[0]}. O wins: ${value[1]}. Draws: ${value[2]}`);
+    document.querySelector(".turn-board").style.display = "none";
+    document.querySelector(".result").style.display = "flex";
+}
