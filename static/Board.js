@@ -2,8 +2,8 @@ import { Renderer } from "./Renderer.js"
 
 export class Board {
 
-    static SIZE = 5;
-    static WIN_STREAK = 3;
+    static SIZE;
+    static WIN_STREAK;
 
     static Mark = {
         BLANK: "",
